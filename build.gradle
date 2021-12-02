@@ -1,0 +1,39 @@
+buildscript {
+    ext {
+        lombokVersion = '1.18.12'
+        jerseyVersion = '1.8'
+        jaxbVersion = '2.3.2'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'war'
+    id 'jacoco'
+}
+
+group = 'tomcat-jersey-rs-api'
+
+version = '1.0.0'
+
+war {
+    archiveFileName = "${archiveBaseName.get()}.${archiveExtension.get()}"
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    implementation("com.sun.jersey:jersey-server:${jerseyVersion}")
+    implementation("com.sun.jersey:jersey-json:${jerseyVersion}")
+    
+    compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    
+    implementation("jakarta.xml.bind:jakarta.xml.bind-api:${jaxbVersion}")
+    implementation("org.glassfish.jaxb:jaxb-runtime:${jaxbVersion}")
+}
